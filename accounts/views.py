@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 
-def register(request):
+def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -12,9 +12,9 @@ def register(request):
             return redirect('home')  # Редирект на главную страницу после регистрации
     else:
         form = UserCreationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 @login_required
-def home(request):
-    return render(request, 'accounts/home.html')
+def profile(request):
+    return render(request, 'accounts/profile.html')

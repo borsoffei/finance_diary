@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from Diary import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('', views.home, name='home'),
+    path('transactions/', views.transaction_list, name='transaction_list'),
+    path('transactions/add/', views.add_transaction, name='add_transaction'),
+    path('transactions/edit/<int:transaction_id>/', views.edit_transaction, name='edit_transaction'),
+    path('transactions/delete/<int:transaction_id>/', views.delete_transaction, name='delete_transaction'),
 ]

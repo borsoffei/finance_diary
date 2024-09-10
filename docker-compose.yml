@@ -13,9 +13,14 @@ services:
 
   db:
     image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: finance_diary
-      POSTGRES_USER: borsoffei
-      POSTGRES_PASSWORD: 12345678
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
     ports:
       - "5432:5432"
+
+volumes:
+  postgres_data:
