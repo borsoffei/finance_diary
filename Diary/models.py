@@ -15,5 +15,8 @@ class Transaction(models.Model):
     date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'transaction'
+
     def __str__(self):
         return f"{self.get_transaction_type_display()} of {self.amount} on {self.date}"

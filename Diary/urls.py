@@ -17,7 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from Diary import views
+from rest_framework.routers import DefaultRouter
+from .views import TransactionViewSet
+router = DefaultRouter()
+router.register(r'transactions', TransactionViewSet, basename='transactions')
 urlpatterns = [
+    path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('', views.home, name='home'),

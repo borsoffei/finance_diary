@@ -13,11 +13,13 @@
 
 <h3>Your Transactions</h3>
 <ul>
-    {% for transaction in transactions %}
-        <li>{{ transaction.date }} - {{ transaction.amount }} - {{ transaction.get_transaction_type_display }}</li>
-    {% empty %}
+    {% if transactions %}
+        {% for transaction in transactions %}
+            <li>{{ transaction.date }} - {{ transaction.amount }} - {{ transaction.get_transaction_type_display }}</li>
+        {% endfor %}
+    {% else %}
         <li>No transactions yet.</li>
-    {% endfor %}
+    {% endif %}
 </ul>
 
 <!-- Кнопка для добавления новой транзакции -->
