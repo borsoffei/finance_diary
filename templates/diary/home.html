@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-<form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
-<h2>Welcome, {{ user.username }}!</h2>
+{% extends 'base.html' %}
 
-<h3>Your Transactions</h3>
-<ul>
-    {% if transactions %}
-        {% for transaction in transactions %}
-            <li>{{ transaction.date }} - {{ transaction.amount }} - {{ transaction.get_transaction_type_display }}</li>
-        {% endfor %}
-    {% else %}
-        <li>No transactions yet.</li>
-    {% endif %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Your Transactions</h2>
+
+<ul id="transactions-list">
+    <!-- Здесь будет динамически отображаться список транзакций через JS -->
 </ul>
 
-<!-- Кнопка для добавления новой транзакции -->
-<a href="{% url 'add_transaction' %}">Add new transaction</a>
-</body>
-</html>
+<script>
+    // Пример отправки запроса к API для получения транзакций
+    fetch('/api/transactions/')
+        .then(response => response.json())
+        .then(data => {
+            const transactionsList = document.getElementById('transactions-list');
+            data.forEach(transaction => {
+                const li = document.createElement('li');
+                li.textContent = `${transaction.date}: ${transaction.amount} (${transaction.transaction_type})`;
+                transactionsList.appendChild(li);
+            });
+        });
+</script>
+{% endblock %}
