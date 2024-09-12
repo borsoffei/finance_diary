@@ -16,18 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Diary import views
 from rest_framework.routers import DefaultRouter
 from .views import TransactionViewSet
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 router = DefaultRouter()
 router.register(r'transactions', TransactionViewSet, basename='transactions')
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('', views.home, name='home'),
-    path('transactions/', views.transaction_list, name='transaction_list'),
-    path('transactions/add/', views.add_transaction, name='add_transaction'),
-    path('transactions/edit/<int:transaction_id>/', views.edit_transaction, name='edit_transaction'),
-    path('transactions/delete/<int:transaction_id>/', views.delete_transaction, name='delete_transaction'),
+    path('', include('accounts.urls')),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
