@@ -9,4 +9,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'is_default']
+        fields = ['id', 'user', 'name', 'is_default']
+
+class TotalSumSerializer(serializers.Serializer):
+    total_sum = serializers.DecimalField(max_digits=15, decimal_places=2)
